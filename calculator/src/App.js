@@ -9,7 +9,7 @@ const App = () => {
     setData(data.concat(e.target.name))
   }
   else {
-    console.log(data[data.length - 1],"same operator",e.target.name)
+   
     if(data == "" || operator.includes(data.slice(-1)))return
    
     else if(e.target.name == "."){
