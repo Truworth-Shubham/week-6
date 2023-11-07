@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import './index.css'
 
 const App = () => {
-
+  
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
-
+  
   const operator = ["/", "*", "-", "+", "."];
   const number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-
+  
   const handleClick = (value) => {
-    if (number.includes(value)) {
+    if (number.includes(value)) 
+    {
       setData(data.concat(value))
-     
     }
     else {
       if (data == "" || operator.includes(data.slice(-1))) return
@@ -29,9 +29,8 @@ const App = () => {
         setData(data.concat(value))
       }
     }
-
   }
-
+  
   const clear = () => setData("")
   const backspace = () => setData(data.slice(0, -1))
   const calculate = () => {
