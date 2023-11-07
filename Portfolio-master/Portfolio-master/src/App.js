@@ -1,19 +1,17 @@
 import React from 'react'
-import Navbar_first from './Navbar/Navbar_first'
+import NavbarFirst from './Components/NavbarFirst'
 import Home from './Components/Home'
 import AboutMe from './Components/AboutMe'
-import Education from './Components/Education'
 import Projects from './Components/Projects'
 
 const App = () => {
   return (
-    <div>
-      <Navbar_first/>
+    <>
+      <NavbarFirst/>
       <Home/>
       <AboutMe/>
-      {/* <Education/> */}
       <Projects/>
-    </div>
+    </>
   )
 }
 
