@@ -1,21 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect,useRef } from 'react'
 import './index.css'
 
 const App = () => {
   
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
+  const inputArea = useRef()
   
   const operator = ["/", "*", "-", "+", "."];
   const number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
   
+  useEffect(()=>{
+    inputArea.current.focus()
+  },[])
   const handleClick = (value) => {
     if (number.includes(value)) 
     {
+      if(value == 0){
+        if(data.length == 1 && data[0] == 0) return
+        else if(data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length-2] != ".") return        
+      }
+      if(data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length-2] != ".") return
+      if(data.length==1 && data[0]==0) return
+
       setData(data.concat(value))
     }
-    else {
-      if (data == "" || operator.includes(data.slice(-1))) return
+    else
+    {
+      if (data == "" || operator.includes(data[data.length-1])) return
+
       else if (value == ".") {
         for (let i = data.length - 1; i >= 0; i--) {
           if (operator.includes(data[i])) {
@@ -30,7 +43,6 @@ const App = () => {
       }
     }
   }
-  
   const clear = () => setData("")
   const backspace = () => setData(data.slice(0, -1))
   const calculate = () => {
@@ -58,14 +70,14 @@ const App = () => {
           backspace()
         }
         else if (e.key == "Delete") {
-          setData();
+          setData("");
         }
         handleClick(e.key)
       }
       }>
         <div className='container'>
           <form>
-            <textarea type='text' value={data} onChange={(text) => setData(text.target.value)} readOnly className={toggle ? "error" : null}/>
+            <textarea type='text' value={data} onChange={(text) => setData(text.target.value)} readOnly className={toggle ? "error" : null} ref={inputArea}/>
           </form>
           <div className='keypad'>
             <button id='clear' onClick={clear}>A/C</button>
