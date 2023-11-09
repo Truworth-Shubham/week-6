@@ -13,11 +13,10 @@ const NavbarFirst = () => {
 
   const aboutScroll = () => {
 
-
     window.scrollTo({
       top: 590,
       behavior: "smooth",
-  });
+    });
 
   }
 
@@ -33,17 +32,16 @@ const NavbarFirst = () => {
   return (
     <>
 
-     <div className='navMain-container'>
+      <div className='navMain-container'>
         <div className='nav-mainChild1'>
-            <div className='mainChild1-subChild mainChild1-subChild1'>SHUBHAM SHARMA</div>
+          <div className='mainChild1-subChild mainChild1-subChild1'>SHUBHAM SHARMA</div>
         </div>
         <div className='nav-mainChild2'>
-          
-            <div className='mainChild2-subChild mainChild2-subChild1' onClick={homeScroll}>HOME</div>
-            <div className='mainChild2-subChild mainChild2-subChild2' onClick={aboutScroll}>ABOUT</div>
-            <div className='mainChild2-subChild mainChild2-subChild1' onClick={projectsScroll}>PROJECTS</div>
+          <div className='mainChild2-subChild mainChild2-subChild1' onClick={homeScroll}>HOME</div>
+          <div className='mainChild2-subChild mainChild2-subChild2' onClick={aboutScroll}>ABOUT</div>
+          <div className='mainChild2-subChild mainChild2-subChild1' onClick={projectsScroll}>PROJECTS</div>
         </div>
-     </div>
+      </div>
 
     </>
   )

@@ -3,7 +3,7 @@ import React from 'react'
 const Home = () => {
 
     const project = () => {
-        
+
         window.scrollTo({
             top: 1150,
             behavior: "smooth",
@@ -26,7 +26,9 @@ const Home = () => {
                 </div>
                 <div className='homeContainer-child2'>
                     <div className='linkdin-div'>
+                        <a href='https://www.linkedin.com/in/shubham-sharma-2127b827b'>
                         <i class="fa-brands fa-linkedin fa-2xl"></i>
+                        </a>
                     </div>
                     <div className='github-div'>
                         <a href='https://github.com/Shubham1032'>

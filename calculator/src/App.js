@@ -61,7 +61,7 @@ const App = () => {
       setData("")
     }
     else {
-    setData(data.slice(0, -1))  
+    setData(data[data.length-1])  
     }
 
   }
