@@ -29,12 +29,12 @@ const App = () => {
     }
 
     else {
-
-      if(data == "" || operator.includes(data[data.length - 1]))return
+      if(data == "" && value == "."){
+        setData(data.concat("0"+value))
+      }
+      else if(data == "" || operator.includes(data[data.length - 1]) )return
       else if (value == ".") {
-        if(data == "" || operator.includes(data[data.length - 1])){
-          setData(data.concat("0"+value))
-        }
+        
         for (let i = data.length - 1; i >= 0; i--) {
           if (operator.includes(data[i])) {
             if (data[i] === ".") return
@@ -47,7 +47,7 @@ const App = () => {
         setData(data.concat(value))
       }
     }
-    
+
   }
 
   const clear = () => setData("")
