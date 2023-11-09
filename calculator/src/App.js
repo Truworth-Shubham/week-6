@@ -1,35 +1,40 @@
-import React, { useState,useEffect,useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './index.css'
 
 const App = () => {
-  
+
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
   const inputArea = useRef()
-  
+
   const operator = ["/", "*", "-", "+", "."];
   const number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     inputArea.current.focus()
-  },[])
+  }, [])
+
   const handleClick = (value) => {
-    if (number.includes(value)) 
-    {
-      if(value == 0){
-        if(data.length == 1 && data[0] == 0) return
-        else if(data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length-2] != ".") return        
+
+    if (number.includes(value)) {
+
+      if (value == 0) {
+        if (data.length == 1 && data[0] == 0) return
+        else if (data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length - 2] != ".") return
       }
-      if(data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length-2] != ".") return
-      if(data.length==1 && data[0]==0) return
-
+      if (data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length - 2] != ".") return
+      if (data.length == 1 && data[0] == 0) return
       setData(data.concat(value))
-    }
-    else
-    {
-      if (data == "" || operator.includes(data[data.length-1])) return
 
+    }
+
+    else {
+
+      if(data == "" || operator.includes(data[data.length - 1]))return
       else if (value == ".") {
+        if(data == "" || operator.includes(data[data.length - 1])){
+          setData(data.concat("0"+value))
+        }
         for (let i = data.length - 1; i >= 0; i--) {
           if (operator.includes(data[i])) {
             if (data[i] === ".") return
@@ -42,27 +47,60 @@ const App = () => {
         setData(data.concat(value))
       }
     }
+    
   }
+
   const clear = () => setData("")
-  const backspace = () => setData(data.slice(0, -1))
+
+  const backspace = () =>{
+    
+    if(data == "Error") {
+      setData("")
+    }
+    else if(data == Infinity){
+      setData("")
+    }
+    else {
+    setData(data.slice(0, -1))  
+    }
+
+  }
+
   const calculate = () => {
+
     try {
-      setData(eval(data).toString());
+
+      let result = eval(data).toString();
+
+      if(isNaN(result)) {
+
+        setData("Error")
+        setToggle(true)
+        setTimeout(() => {
+          setData("")
+          setToggle(false)
+      }, 1000)
+
+      }
+      else {
+        setData(result);
+      }
     }
     catch (err) {
       setData("Error");
       setToggle(true)
-      setTimeout(()=>{
+      setTimeout(() => {
         setData("")
         setToggle(false)
-      },1000)
+      }, 1000)
     }
+
   }
 
   return (
     <>
-      <div className='body' onKeyDown={(e) => 
-      {
+
+      <div className='body' onKeyDown={(e) => {
         if (e.key == "Enter") {
           calculate()
         }
@@ -77,11 +115,11 @@ const App = () => {
       }>
         <div className='container'>
           <form>
-            <textarea type='text' value={data} onChange={(text) => setData(text.target.value)} readOnly className={toggle ? "error" : null} ref={inputArea}/>
+            <textarea type='text' value={data} onChange={(text) => setData(text.target.value)} readOnly className={toggle ? "error" : null} ref={inputArea} />
           </form>
           <div className='keypad'>
-            <button id='clear' onClick={clear}>A/C</button>
-            <button id='backspace' onClick={backspace}><i className="fa-solid fa-delete-left"></i></button>
+            <p id='clear' onClick={clear}>A/C</p>
+            <p id='backspace' onClick={backspace}><i className="fa-solid fa-delete-left"></i></p>
             <p onClick={() => handleClick("/")}>&divide;</p>
             <p onClick={() => handleClick("7")}>7</p>
             <p onClick={() => handleClick("8")}>8</p>
@@ -101,6 +139,7 @@ const App = () => {
           </div>
         </div>
       </div>
+
     </>
   )
 }

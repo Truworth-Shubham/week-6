@@ -3,6 +3,7 @@ import React from 'react'
 const Home = () => {
 
     const project = () => {
+        
         window.scrollTo({
             top: 1150,
             behavior: "smooth",

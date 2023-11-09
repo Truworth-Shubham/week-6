@@ -53,4 +53,5 @@ const data = [
         link: "https://truworth-shubham.github.io/qr-code/qrcode.html"
     },
 ]
+
 export default data
