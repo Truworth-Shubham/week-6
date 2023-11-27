@@ -171,25 +171,25 @@ const App = () => {
             <textarea type='text' value={data} onChange={(text) => setData(text.target.value)} readOnly className={toggle ? "error" : null} ref={inputArea} />
           </form>
           <div className='keypad'>
-            <p id='clear' onClick={clear}>A/C</p>
-            <p id='backspace' onClick={backspace}><i className="fa-solid fa-delete-left"></i></p>
-            <p onClick={() => handleClick("%")}>%</p>
-            <p onClick={() => handleClick("/")}>&divide;</p>
+            <p id='clear' onClick={clear} className='gray'>A/C</p>
+            <p id='backspace' onClick={backspace} className='gray'><i className="fa-solid fa-delete-left"></i></p>
+            <p onClick={() => handleClick("%")} className='gray'>%</p>
+            <p onClick={() => handleClick("/")} className='gold'>&divide;</p>
             <p onClick={() => handleClick("7")}>7</p>
             <p onClick={() => handleClick("8")}>8</p>
             <p onClick={() => handleClick("9")}>9</p>
-            <p onClick={() => handleClick("*")}>&times;</p>
+            <p onClick={() => handleClick("*")} className='gold'>&times;</p>
             <p onClick={() => handleClick("4")}>4</p>
             <p onClick={() => handleClick("5")}>5</p>
             <p onClick={() => handleClick("6")}>6</p>
-            <p onClick={() => handleClick("-")}>&ndash;</p>
+            <p onClick={() => handleClick("-")} className='gold'>&ndash;</p>
             <p onClick={() => handleClick("1")}>1</p>
             <p onClick={() => handleClick("2")}>2</p>
             <p onClick={() => handleClick("3")}>3</p>
-            <p onClick={() => handleClick("+")}>+</p>
+            <p onClick={() => handleClick("+")} className='gold'>+</p>
             <p onClick={() => handleClick("0")}>0</p>
             <p onClick={() => handleClick(".")}>.</p>
-            <p onClick={() => calculate("=")} id='result'>=</p>
+            <p onClick={() => calculate("=")} id='result' >=</p>
           </div>
         </div>
       </div>
