@@ -33,7 +33,10 @@ const App = () => {
         setData(data.concat("0" + value))
       }
       else if (data === "") return
-      else if (operator.includes(data[data.length - 1]) && data[data.length - 1] !== "%") return
+      else if(value === "%" && data[data.length-1] === "%")return
+      else if (operator.includes(data[data.length - 1]) && data[data.length - 1] !== "%"){
+        return
+      } 
       else if (value == ".") {
 
         for (let i = data.length - 1; i >= 0; i--) {
