@@ -170,6 +170,7 @@ const App = () => {
           <div className='keypad'>
             <p id='clear' onClick={clear}>A/C</p>
             <p id='backspace' onClick={backspace}><i className="fa-solid fa-delete-left"></i></p>
+            <p onClick={() => handleClick("%")}>%</p>
             <p onClick={() => handleClick("/")}>&divide;</p>
             <p onClick={() => handleClick("7")}>7</p>
             <p onClick={() => handleClick("8")}>8</p>
@@ -185,7 +186,6 @@ const App = () => {
             <p onClick={() => handleClick("+")}>+</p>
             <p onClick={() => handleClick("0")}>0</p>
             <p onClick={() => handleClick(".")}>.</p>
-            <p onClick={() => handleClick("%")}>%</p>
             <p onClick={() => calculate("=")} id='result'>=</p>
           </div>
         </div>
