@@ -5,6 +5,9 @@ import orangeImg from '../image/orangeImg.png'
 import chatbotImg from '../image/chatbotImg.png'
 import weatherappImg from '../image/weatherappImg.png'
 import qrcodeImg from '../image/qrImg.png'
+import gitusersImage from '../image/gitusersImage.png'
+import ecomImage from '../image/ecomImage.png'
+import calculatorImage from '../image/calculatorImage.png'
 
 
 const data = [
@@ -54,24 +57,24 @@ const data = [
     },
     {
         title: "Calculator",
-        img: "",
+        img: calculatorImage,
         description: "Calculator",
         techUsed: "React js",
-        link: "https://github.com/Truworth-Shubham/week-6.git"
+        link: "https://656473c81931392aaea74583--famous-cat-bb9436.netlify.app/"
     },
     {
         title: "My Shop",
-        img: "",
+        img: ecomImage,
         description: "Ecommerce app having functality of cart",
         techUsed: "React js, ant Design",
-        link: "https://github.com/Truworth-Shubham/ecom.git"
+        link: "https://656474a3ea7b152a3ff3cb41--resonant-mooncake-3157a1.netlify.app/"
     },
     {
         title: "Git users",
-        img: "",
+        img: gitusersImage,
         description: "Listing diffrent git users with there followers and following",
         techUsed: "React js, ant Design",
-        link: "https://github.com/Truworth-Shubham/git-users.git"
+        link: "https://6564773549c9d7311857258b--inspiring-speculoos-ac7b26.netlify.app/"
     }
 ]
 
