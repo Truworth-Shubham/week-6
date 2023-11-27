@@ -109,15 +109,21 @@ const App = () => {
               percentNumber = [...percentNumber].reverse().join("")
               continueExpression = (percentNumber / 100).toString()
               continue;
+            }else{
+                percentNumber = [...percentNumber].reverse().join("")
+                continueExpression += [...remainingString].reverse().join("")
+                continueExpression = eval(continueExpression)
+                tempResult = (continueExpression * percentNumber) / 100
+                tempResult = tempResult.toString()
+                if(tempOperator === "*"){
+                  continueExpression = tempResult
+                }else{
+                  tempResult = eval(continueExpression.toString().concat(tempOperator).concat(tempResult.toString()))
+                  continueExpression = tempResult.toString()
+                }
+                remainingString = ""
             }
-            percentNumber = [...percentNumber].reverse().join("")
-            continueExpression += [...remainingString].reverse().join("")
-            continueExpression = eval(continueExpression)
-            tempResult = (continueExpression * percentNumber) / 100
-            tempResult = tempResult.toString()
-            tempResult = eval(continueExpression.toString().concat(tempOperator).concat(tempResult.toString()))
-            continueExpression = tempResult.toString()
-            remainingString = ""
+            
           } else {
             remainingString += firstExpression
           }
