@@ -7,7 +7,7 @@ const App = () => {
   const [toggle, setToggle] = useState(false);
   const inputArea = useRef()
 
-  const operator = ["/", "*", "-", "+", "."];
+  const operator = ["/", "*", "-", "+", ".", "%"];
   const number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
   useEffect(() => {
@@ -24,17 +24,18 @@ const App = () => {
       }
       if (data[data.length - 1] == 0 && operator.includes(data[data.length - 2]) && data[data.length - 2] != ".") return
       if (data.length == 1 && data[0] == 0) return
+      if (data[data.length - 1] === "%") return
       setData(data.concat(value))
-
     }
 
     else {
-      if(data == "" && value == "."){
-        setData(data.concat("0"+value))
+      if (data == "" && value == ".") {
+        setData(data.concat("0" + value))
       }
-      else if(data == "" || operator.includes(data[data.length - 1]) )return
+      else if (data === "") return
+      else if (operator.includes(data[data.length - 1]) && data[data.length - 1] !== "%") return
       else if (value == ".") {
-        
+
         for (let i = data.length - 1; i >= 0; i--) {
           if (operator.includes(data[i])) {
             if (data[i] === ".") return
@@ -52,38 +53,87 @@ const App = () => {
 
   const clear = () => setData("")
 
-  const backspace = () =>{
-    
-    if(data == "Error") {
+  const backspace = () => {
+
+    if (data == "Error") {
       setData("")
     }
-    else if(data == Infinity){
+    else if (data == Infinity) {
       setData("")
     }
     else {
-    setData(data[data.length-1])  
+      setData(data.slice(0, data.length - 1))
     }
-
   }
 
   const calculate = () => {
-
     try {
+      if (data.includes("%")) {
+        let tempIndex = []
+        let smallArry = ""
+        for (let i = 0; i < data.length; i++) {
+          smallArry += data[i]
+          if (data[i] == "%") {
+            tempIndex.push(smallArry)
+            smallArry = ""
+          }
+        }
+        if (smallArry !== "") tempIndex.push(smallArry)
+        let tempResult = 0
+        let remainingString = ""
+        let continueExpression = ""
+        for (let i = 0; i < tempIndex.length; i++) {
+          let firstExpression = tempIndex[i]
+          let tempOperator = ""
+          let count = 0
+          if (firstExpression[firstExpression.length - 1] === "%") {
+            let percentNumber = ""
+            for (let j = firstExpression.length - 2; j >= 0; j--) {
+              if (operator.includes(firstExpression[j]) && firstExpression[j] !== ".") {
+                count++
+                if (count === 1) {
+                  tempOperator = firstExpression[j]
+                  continue
+                }
+              }
+              if (count === 0) {
+                percentNumber += firstExpression[j]
+              } else {
+                remainingString += firstExpression[j]
+              }
+            }
+            if (count == 0) {
+              percentNumber = [...percentNumber].reverse().join("")
+              continueExpression = (percentNumber / 100).toString()
+              continue;
+            }
+            percentNumber = [...percentNumber].reverse().join("")
+            continueExpression += [...remainingString].reverse().join("")
+            continueExpression = eval(continueExpression)
+            tempResult = (continueExpression * percentNumber) / 100
+            tempResult = tempResult.toString()
+            tempResult = eval(continueExpression.toString().concat(tempOperator).concat(tempResult.toString()))
+            continueExpression = tempResult.toString()
+            remainingString = ""
+          } else {
+            remainingString += firstExpression
+          }
+        }
+        setData(eval(continueExpression.concat(remainingString)).toString())
+        return
 
-      let result = eval(data).toString();
-
-      if(isNaN(result)) {
-
+      }
+      else if (isNaN(eval(data).toString())) {
         setData("Error")
         setToggle(true)
         setTimeout(() => {
           setData("")
           setToggle(false)
-      }, 1000)
+        }, 1000)
 
       }
       else {
-        setData(result);
+        setData(eval(data).toString());
       }
     }
     catch (err) {
@@ -101,13 +151,13 @@ const App = () => {
     <>
 
       <div className='body' onKeyDown={(e) => {
-        if (e.key == "Enter") {
+        if (e.key === "Enter") {
           calculate()
         }
-        else if (e.key == "Backspace") {
+        else if (e.key === "Backspace") {
           backspace()
         }
-        else if (e.key == "Delete") {
+        else if (e.key === "Delete") {
           setData("");
         }
         handleClick(e.key)
@@ -135,6 +185,7 @@ const App = () => {
             <p onClick={() => handleClick("+")}>+</p>
             <p onClick={() => handleClick("0")}>0</p>
             <p onClick={() => handleClick(".")}>.</p>
+            <p onClick={() => handleClick("%")}>%</p>
             <p onClick={() => calculate("=")} id='result'>=</p>
           </div>
         </div>

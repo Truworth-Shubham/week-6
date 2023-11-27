@@ -52,6 +52,27 @@ const data = [
         techUsed: "HTML,CSS",
         link: "https://truworth-shubham.github.io/qr-code/qrcode.html"
     },
+    {
+        title: "Calculator",
+        img: "",
+        description: "Calculator",
+        techUsed: "React js",
+        link: "https://github.com/Truworth-Shubham/week-6.git"
+    },
+    {
+        title: "My Shop",
+        img: "",
+        description: "Ecommerce app having functality of cart",
+        techUsed: "React js, ant Design",
+        link: "https://github.com/Truworth-Shubham/ecom.git"
+    },
+    {
+        title: "Git users",
+        img: "",
+        description: "Listing diffrent git users with there followers and following",
+        techUsed: "React js, ant Design",
+        link: "https://github.com/Truworth-Shubham/git-users.git"
+    }
 ]
 
 export default data
