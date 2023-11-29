@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import '../index.css'
+import './index.css'
 
-const Calculator = () => {
+const App = () => {
 
   const [data, setData] = useState("");
   const [toggle, setToggle] = useState(false);
@@ -85,12 +85,11 @@ const Calculator = () => {
         let tempResult = 0
         let remainingString = ""
         let continueExpression = ""
-        let multiplyCalulator = 0
+        let continueStr = ""
         for (let i = 0; i < tempIndex.length; i++) {
           let firstExpression = tempIndex[i]
           let tempOperator = ""
           let count = 0
-          let tempI = ""
           if (firstExpression[firstExpression.length - 1] === "%") {
             let percentNumber = ""
             for (let j = firstExpression.length - 2; j >= 0; j--) {
@@ -101,7 +100,6 @@ const Calculator = () => {
                   continue
                 }
               }
-
               if (count === 0) {
                 percentNumber += firstExpression[j]
               } else {
@@ -117,40 +115,71 @@ const Calculator = () => {
                 continueExpression += [...remainingString].reverse().join("")
                 continueExpression = eval(continueExpression)
                 tempResult = (continueExpression * percentNumber) / 100
+                tempResult = tempResult.toString()
                 if(tempOperator === "*"){
-                  let multiply = ""
+                  // continueExpression = tempResult
+                  let additionString = [...remainingString].reverse().join("")
+                  let operationNumber = ""
+                  let count = 0
                   let operationOperator = ""
-                  let flag = 0
-                  let secondNo = ""
-                  multiply = [...remainingString].reverse().join("")
-                  for(let i=multiply.length-1; i>=0; i--){
-                    if(operator.includes(multiply[i]) && multiply[i] !== "."){
-                      operationOperator = multiply[i]
-                      flag++;
-                      tempI = i;
-                      break;
+                  let remainingStr = ""
+                  console.log(additionString)
+                  for(let i=additionString.length-1;i>=0;i--)
+                  {
+                    if(operator.includes(additionString[i]) && additionString[i] !== ".")
+                    {
+                      count++
+                      if(count === 1){
+                        operationOperator = additionString[i]
+                        continue
+                      }
                     }
-                    secondNo += multiply[i]
+                    if(count === 0){
+                      operationNumber += additionString[i]
+                    }else{
+                      console.log(additionString[i])
+                      remainingStr += additionString[i]
+                    }
                   }
-                  multiplyCalulator += eval([...remainingString].reverse().join("").slice(0,tempI).concat(operationOperator).concat(eval(([...secondNo].reverse().join("") * percentNumber)/100)))
-                  continueExpression = eval([...remainingString].reverse().join("").slice(0,tempI).concat(operationOperator).concat(eval(([...secondNo].reverse().join("") * percentNumber)/100).toString()))
+                  if(remainingStr == ""){
+                    let foo = [...operationNumber].reverse().join("").toString()
+                    console.log(continueStr)
+                    continueStr = eval(continueStr.concat(operationOperator).concat(eval((foo * percentNumber)/100)))
+                    continueStr = continueStr.toString()
+                    console.log(foo,percentNumber,continueStr)
+                    continueExpression = continueStr
+                    console.log(continueStr,"con str")
+                  }
+                  else{
+                    console.log(remainingStr,"jh")
+                    remainingStr = eval([...remainingStr].reverse().join(""))
+                    operationNumber = [...operationNumber].reverse().join("")
+                    console.log("remainingStr",remainingStr)
+                    tempResult = (operationNumber * percentNumber)/100
+                    remainingStr = eval(remainingStr.toString().concat(operationOperator).concat(tempResult)).toString()
+                    continueStr = remainingStr.toString()
+                    continueStr += continueExpression
+                    console.log(continueStr,"con str")
+                    remainingStr = ""
+                  }
                 }else{
-                  tempResult = tempResult.toString()
                   tempResult = eval(continueExpression.toString().concat(tempOperator).concat(tempResult.toString()))
                   continueExpression = tempResult.toString()
+                  console.log(continueExpression)
+                  continueStr += continueExpression
                 }
                 remainingString = ""
-              } 
-            } else {
-              remainingString += firstExpression
             }
+            
+          } else {
+            remainingString += firstExpression
           }
-          if(remainingString === ""){
-            setData(multiplyCalulator.toString())
-          }else{
-            setData(eval(continueExpression.concat(remainingString)).toFixed(2).toString())
-          }
+        }
+        console.log(continueExpression,"<contnuExp",remainingString,"rem")
+        setData(eval(continueExpression.toString().concat(remainingString)).toFixed(2).toString())
+        continueStr = ""
         return
+
       }
       else if (isNaN(eval(data).toString())) {
         setData("Error")
@@ -159,6 +188,7 @@ const Calculator = () => {
           setData("")
           setToggle(false)
         }, 1000)
+
       }
       else {
         setData(eval(data).toFixed(2).toString());
@@ -223,4 +253,4 @@ const Calculator = () => {
   )
 }
 
-export default Calculator
+export default App
